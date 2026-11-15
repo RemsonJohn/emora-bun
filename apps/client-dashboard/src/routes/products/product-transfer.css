@@ -1,0 +1,29 @@
+.product-transfer-dialog { width: min(760px, calc(100vw - 32px)); }
+.product-transfer-dialog .staff-dialog-content { padding-top: 26px; padding-bottom: 28px; }
+.transfer-section h3 { margin: 0; font-size: 15px; }
+.transfer-section p { margin: 6px 0 0; color: #526650; font-size: 13px; line-height: 1.55; }
+.transfer-section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.transfer-template { flex-shrink: 0; }
+.transfer-file { position: relative; display: flex; align-items: center; gap: 14px; margin: 20px 0 0; padding: 16px; border: 1px dashed #a8b8a5; border-radius: 10px; background: #f8faf6; cursor: pointer; }
+.transfer-file:focus-within { outline: 2px solid #21815b; outline-offset: 2px; }
+.transfer-file.is-disabled { cursor: default; opacity: .65; }
+.transfer-file input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+.transfer-file-icon { display: grid; flex: 0 0 40px; place-items: center; width: 40px; height: 40px; border-radius: 8px; background: #e4eddd; color: #365b3b; }
+.transfer-file-copy { display: grid; flex: 1; min-width: 0; gap: 4px; }
+.transfer-file-copy strong { overflow: hidden; color: #24332a; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.transfer-file-copy span { color: #526650; font-size: 12px; }
+.transfer-file-button { pointer-events: none; }
+.transfer-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.transfer-preview { padding-top: 2px; }
+.transfer-export { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; padding-top: 26px; border-top: 1px solid #e1e8dc; }
+.transfer-export > div { max-width: 480px; }
+.transfer-export > .button { flex-shrink: 0; }
+.transfer-permission { padding: 14px; margin-top: 18px !important; border-radius: 8px; background: #f5f7f2; }
+.transfer-notice { margin: 0 0 20px; }
+.transfer-success { padding: 12px 14px; border-radius: 8px; background: #eaf3e6; color: #294b30; font-size: 13px; line-height: 1.5; }
+@media (max-width: 600px) {
+  .transfer-section-heading, .transfer-export { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .transfer-file { flex-wrap: wrap; }
+  .transfer-file-button { margin-left: 54px; }
+  .transfer-actions .button { flex: 1; }
+}

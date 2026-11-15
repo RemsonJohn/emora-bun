@@ -1,0 +1,105 @@
+.emora-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 39px;
+  padding: 9px 12px;
+  color: #26352b;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #bec9bb;
+  border-radius: 7px;
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+.emora-dropdown-trigger:hover:not(:disabled) {
+  border-color: #749174;
+}
+.emora-dropdown-trigger[data-state="open"] {
+  border-color: #268064;
+  box-shadow: 0 0 0 2px #d9ede2;
+}
+.emora-dropdown-trigger[data-placeholder] {
+  color: #687567;
+}
+.emora-dropdown-trigger:disabled {
+  color: #687567;
+  background: #f4f6f2;
+  opacity: 1;
+}
+.emora-dropdown-trigger > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.emora-dropdown-chevron {
+  display: flex;
+  color: #5a705d;
+}
+.emora-dropdown-trigger[data-state="open"] .emora-dropdown-chevron {
+  transform: rotate(180deg);
+}
+.emora-dropdown-content {
+  z-index: 100;
+  width: var(--radix-select-trigger-width);
+  max-height: min(280px, var(--radix-select-content-available-height));
+  overflow: hidden;
+  color: #26352b;
+  background: #fff;
+  border: 1px solid #d6dfd2;
+  border-radius: 9px;
+  box-shadow:
+    0 12px 32px #1b302520,
+    0 2px 8px #1b30250d;
+}
+.emora-dropdown-viewport {
+  padding: 5px;
+}
+.emora-dropdown-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 36px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  line-height: 1.4;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+}
+.emora-dropdown-item[data-highlighted] {
+  background: #edf3e9;
+  color: #1b3c29;
+}
+.emora-dropdown-item[data-state="checked"] {
+  color: #254b31;
+  font-weight: 600;
+}
+.emora-dropdown-item[data-disabled] {
+  color: #8a9586;
+  cursor: not-allowed;
+}
+.emora-dropdown-check {
+  display: flex;
+  color: #386343;
+}
+.emora-dropdown-scroll {
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+  color: #596f5c;
+}
+label > .emora-dropdown-trigger {
+  margin-top: 7px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .emora-dropdown-trigger {
+    transition: none;
+  }
+}

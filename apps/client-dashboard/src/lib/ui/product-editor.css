@@ -1,0 +1,27 @@
+.product-section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.product-section-heading h2 { margin-bottom: 4px; }
+.product-section-heading p { color: #596b57; font-size: 12px; }
+.product-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 12px; margin-top: 18px; }
+.product-image { border: 1px solid #dfe6dc; border-radius: 8px; overflow: hidden; background: #f7f9f5; }
+.product-image img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.product-image-controls { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 7px; }
+.product-image-controls label { display: flex; align-items: center; gap: 5px; margin: 0; font-size: 11px; }
+.product-image-controls input[type="radio"] { width: auto; margin: 0; accent-color: #315b3a; }
+.product-image-controls button { padding: 4px; }
+.product-media-empty { padding: 26px 0 12px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.variant-list { margin-top: 18px; border-top: 1px solid #e3e9df; }
+.variant-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 13px 0; border-bottom: 1px solid #e3e9df; }
+.variant-row small { margin-top: 3px; color: #596b57; }
+.variant-editor, .variant-add { margin-top: 20px; padding: 16px; border: 1px solid #dce4d8; border-radius: 8px; background: #f9fbf7; }
+.variant-editor h3, .variant-editor h4 { margin: 0 0 12px; }
+.variant-editor h4 { margin-top: 20px; }
+.variant-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
+.variant-check { display: flex !important; align-items: center; gap: 8px; }
+.variant-check input { width: auto; margin: 0; accent-color: #315b3a; }
+.variant-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
+.variant-add summary { cursor: pointer; font-weight: 600; }
+.variant-add p { margin-top: 9px; }
+.variant-add > .button { margin-top: 16px; }
+@media (max-width: 600px) { .product-section-heading { flex-direction: column; } .product-media-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .variant-fields { grid-template-columns: 1fr; } .variant-row { align-items: flex-start; flex-direction: column; } }

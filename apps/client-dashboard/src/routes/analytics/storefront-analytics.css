@@ -1,0 +1,134 @@
+.storefront-report {
+  margin-top: 22px;
+}
+.storefront-report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px;
+  border-bottom: 1px solid #e9ece4;
+}
+.storefront-report-header p {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #65735c;
+}
+.storefront-report-actions {
+  display: flex;
+  align-items: end;
+  gap: 6px;
+}
+.storefront-report-actions label {
+  font-size: 10px;
+  color: #65735c;
+}
+.storefront-report-actions .emora-dropdown-trigger {
+  margin-top: 5px;
+  min-width: 130px;
+  padding: 7px 9px;
+  font-size: 11px;
+}
+.storefront-report-summary {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 22px 24px 14px;
+}
+.storefront-report-summary > strong {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+.storefront-report-summary span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.storefront-report-summary small {
+  color: #65735c;
+  font-size: 10px;
+}
+.storefront-bars {
+  padding: 0 24px 16px;
+}
+.storefront-bar-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(100px, 2fr) 70px;
+  gap: 16px;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid #eff1eb;
+}
+.storefront-bar-label strong,
+.storefront-bar-value strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+.storefront-bar-label small,
+.storefront-bar-value small {
+  margin-top: 4px;
+  color: #65735c;
+  font-size: 10px;
+}
+.storefront-bar-track {
+  height: 9px;
+  background: #edf1e9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.storefront-bar-track span {
+  display: block;
+  height: 100%;
+  background: #608d70;
+  border-radius: 4px;
+}
+.storefront-bar-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.storefront-report-note,
+.storefront-sample {
+  padding: 14px 24px;
+  line-height: 1.65;
+  color: #637159;
+  font-size: 11px;
+  background: #fafbf8;
+}
+.storefront-sample {
+  background: #f5f2e5;
+  color: #655725;
+}
+.storefront-report-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 38px 20px;
+  text-align: center;
+  color: #65735c;
+  font-size: 12px;
+}
+.storefront-report-empty strong {
+  color: #3f5035;
+}
+.storefront-report-empty p {
+  max-width: 440px;
+  line-height: 1.7;
+}
+@media (max-width: 650px) {
+  .storefront-report-header {
+    align-items: start;
+    flex-direction: column;
+  }
+  .storefront-bar-row {
+    grid-template-columns: minmax(100px, 1fr) minmax(60px, 1fr) 45px;
+    gap: 9px;
+  }
+  .storefront-bars {
+    padding-inline: 16px;
+  }
+  .storefront-bar-label small {
+    line-height: 1.4;
+  }
+}

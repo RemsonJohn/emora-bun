@@ -1,0 +1,10 @@
+.discount-dialog { width: min(680px, calc(100vw - 32px)); }
+.discount-form { display: grid; gap: 16px; }
+.discount-form label { display: grid; gap: 8px; font-weight: 600; }
+.discount-form input { width: 100%; }
+.discount-optional { color: #526650; font-weight: 400; }
+.discount-help, .discount-summary p { margin: 0; color: #526650; font-size: 12px; line-height: 1.6; }
+.discount-summary { display: grid; gap: 7px; padding: 14px; border: 1px solid #e0e8db; border-radius: 8px; background: #f8faf6; }
+.discount-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px; }
+.discount-delete { margin-right: auto; color: #a22b25; }
+@media (max-width: 600px) { .discount-actions { flex-wrap: wrap; } .discount-actions .button { flex: 1; } }
