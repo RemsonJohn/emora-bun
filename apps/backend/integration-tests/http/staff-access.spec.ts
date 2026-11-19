@@ -107,7 +107,8 @@ medusaIntegrationTestRunner({
       const again = await api.post(`/admin/orders/${order.id}/approve`, {}, header(manager.id))
       expect(again.data.review).toEqual(approved.data.review)
       expect((await api.post(`/admin/orders/${order.id}/complete`, {}, header(manager.id))).status).not.toBe(403)
-      expect((await api.post("/admin/payments/pay_test/capture", {}, header(admin.id))).status).toBe(409)
+      // Capture is checked per payment provider; an unknown payment is not found.
+      expect((await api.post("/admin/payments/pay_test/capture", {}, header(admin.id))).status).toBe(404)
       const later = await users.createUsers({ email: "created-after-bootstrap@example.test" })
       await bootstrapStaffAccess({ container })
       expect(await access.listStaffGrants({ user_id: later.id })).toHaveLength(0)
