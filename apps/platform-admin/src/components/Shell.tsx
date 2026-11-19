@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
-import { Activity, LogOut, Menu as MenuIcon, ShieldCheck, Store, X } from "lucide-react"
+import { Activity, BookOpen, LogOut, Menu as MenuIcon, ShieldCheck, Store, X } from "lucide-react"
 import type { Me } from "@/lib/api"
 import { Link, useRouter } from "@/lib/router"
 
@@ -7,6 +7,7 @@ const NAV = [
   { to: "/merchants", label: "Merchants", icon: Store },
   { to: "/activity", label: "Activity", icon: Activity },
   { to: "/security", label: "Security", icon: ShieldCheck },
+  { to: "/guide", label: "Guide", icon: BookOpen },
 ]
 
 /** Sidebar navigation whose highlight pill slides to the current section. */

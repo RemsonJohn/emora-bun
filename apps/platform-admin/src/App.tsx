@@ -3,6 +3,7 @@ import { ApiError, api, type Me } from "@/lib/api"
 import { RouterProvider, useRouter } from "@/lib/router"
 import { Shell } from "@/components/Shell"
 import { ActivityPage } from "@/pages/Activity"
+import { Guide } from "@/pages/Guide"
 import { MerchantDetail } from "@/pages/MerchantDetail"
 import { Merchants } from "@/pages/Merchants"
 import { Security } from "@/pages/Security"
@@ -18,6 +19,7 @@ function Routes({ me }: { me: Me }) {
   if (merchant) return <MerchantDetail key={merchant[1]} id={merchant[1]!} me={me} />
   if (pathname === "/activity") return <ActivityPage />
   if (pathname === "/security") return <Security me={me} />
+  if (pathname === "/guide") return <Guide />
   return <Merchants me={me} />
 }
 
