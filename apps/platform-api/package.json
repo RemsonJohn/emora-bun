@@ -1,0 +1,33 @@
+{
+  "name": "@emora/platform-api",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Emora platform API: merchant registry, Emora staff accounts, signed access to shop backends.",
+  "scripts": {
+    "dev": "node scripts/medusa.mjs develop",
+    "build": "node scripts/medusa.mjs build",
+    "start": "node scripts/medusa.mjs start",
+    "lint": "node scripts/medusa.mjs lint",
+    "medusa": "node scripts/medusa.mjs",
+    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
+  },
+  "dependencies": {
+    "@medusajs/cli": "2.22.6",
+    "@medusajs/framework": "2.22.6",
+    "@medusajs/medusa": "2.22.6",
+    "zod": "4.2.0"
+  },
+  "devDependencies": {
+    "@medusajs/test-utils": "2.22.6",
+    "@swc/core": "^1.7.28",
+    "@swc/jest": "^0.2.36",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^20.12.11",
+    "jest": "^29.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  }
+}
