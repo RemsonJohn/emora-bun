@@ -1,4 +1,5 @@
 import Redis from "ioredis"
+import { timingSafeEqual } from "node:crypto"
 import type { MedusaNextFunction, MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
 
 /**
@@ -41,9 +42,32 @@ async function countInRedis(client: Redis, key: string, windowSeconds: number) {
   return Number(count)
 }
 
+/**
+ * The shopper's IP. Storefronts call the backend from their own server, so
+ * they forward the shopper's IP in x-emora-client-ip together with the shared
+ * STOREFRONT_SHARED_SECRET; the header is trusted only when the secret matches.
+ */
+export function clientIp(req: MedusaRequest) {
+  const secret = process.env.STOREFRONT_SHARED_SECRET
+  const sent = req.headers["x-emora-storefront-key"]
+  const forwarded = req.headers["x-emora-client-ip"]
+  if (
+    secret &&
+    typeof sent === "string" &&
+    sent.length === secret.length &&
+    timingSafeEqual(Buffer.from(sent), Buffer.from(secret)) &&
+    typeof forwarded === "string" &&
+    forwarded.length > 0 &&
+    forwarded.length <= 64
+  ) {
+    return forwarded
+  }
+  return req.ip || req.socket?.remoteAddress || "unknown"
+}
+
 export function rateLimit({ name, limit, windowSeconds }: Options) {
   return async (req: MedusaRequest, res: MedusaResponse, next: MedusaNextFunction) => {
-    const ip = req.ip || req.socket?.remoteAddress || "unknown"
+    const ip = clientIp(req)
     const key = `emora:rate:${process.env.EMORA_SHOP ?? "shop"}:${name}:${ip}`
     let count: number
     const client = redisClient()

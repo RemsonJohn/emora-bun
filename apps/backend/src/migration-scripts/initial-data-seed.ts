@@ -100,7 +100,7 @@ export default async function initial_data_seed({
       stores: [
         {
           name: shopName,
-          supported_currencies: [{ currency_code: "inr", is_default: true }],
+          supported_currencies: [{ currency_code: "inr", is_default: true, is_tax_inclusive: true }],
           default_sales_channel_id: defaultSalesChannel.id,
         },
       ],
