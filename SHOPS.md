@@ -34,7 +34,7 @@ Windows Smart App Control blocks SWC's unsigned binary.
    (`node scripts/export-catalogue.mjs`) and import it:
    `bun run shop <shop> exec ./src/scripts/import-catalogue.ts <path>/catalogue.json`.
    Running the import again skips products that already exist.
-5. Create the first staff user and run the backend:
+5. Create the first staff user and run the backend (see Merchant dashboard below):
    `bun run shop <shop> develop`.
 6. In the storefront's `.env.local`, set `MEDUSA_BACKEND_URL`,
    `MEDUSA_PUBLISHABLE_KEY` and the same `STOREFRONT_SHARED_SECRET`.
@@ -104,3 +104,15 @@ What the super admin can do: see each shop's health and 30-day figures (counts
 and rupee totals only), switch features on or off on the shop's own backend,
 create an owner invitation link, and read the activity log. It cannot see or
 edit products, customers or orders: merchants manage those in their dashboard.
+
+# Merchant dashboard per shop
+
+`apps/client-dashboard` talks to one shop backend. Pick it with environment
+variables (defaults: backend 9000, port 5174):
+
+```bash
+DASHBOARD_BACKEND_URL=http://localhost:9001 DASHBOARD_PORT=5176 node node_modules/vite/bin/vite.js
+```
+
+Set that shop's `MERCHANT_DASHBOARD_URL` (owner invitation links) and its
+`ADMIN_CORS` / `AUTH_CORS` to the same dashboard address.
