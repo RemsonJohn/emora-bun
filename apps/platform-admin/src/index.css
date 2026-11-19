@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Design tokens follow the design/super-admin prototype: Medusa-like neutral
+   surfaces, one purple accent, restrained glass only on the shell. */
+@theme {
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-shell: #f6f6f8;
+  --color-ink: #25272b;
+  --color-muted: #656974;
+  --color-line: #e5e7eb;
+  --color-soft: #f3f4f6;
+  --color-accent: #6d51cb;
+  --color-accent-soft: #efebfb;
+  --color-ok: #127a4a;
+  --color-ok-soft: #e7f6ee;
+  --color-warn: #a2560a;
+  --color-warn-soft: #fdf1e3;
+  --color-bad: #b42318;
+  --color-bad-soft: #fdecea;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #141518;
+    --color-surface: #1c1d21;
+    --color-shell: #18191c;
+    --color-ink: #ececf0;
+    --color-muted: #a2a5ae;
+    --color-line: #2c2e34;
+    --color-soft: #24262b;
+    --color-accent: #a693e2;
+    --color-accent-soft: #2c2640;
+    --color-ok: #5ccf94;
+    --color-ok-soft: #173126;
+    --color-warn: #f0b062;
+    --color-warn-soft: #36281a;
+    --color-bad: #f2867b;
+    --color-bad-soft: #3a1f1d;
+  }
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font: 13px/1.5 var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+  outline-offset: 2px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-soft) 25%, var(--color-line) 37%, var(--color-soft) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

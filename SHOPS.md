@@ -73,3 +73,34 @@ and webhook secret. The storefront only ever receives the public key id.
 - **Rate limits:** customer sign-in and sign-up, checkout, looks and enquiries,
   per shopper IP. Set `REDIS_URL` (a different database number per shop) so
   limits are shared across processes.
+
+# The Emora platform (super admin)
+
+Two apps, separate from the shops:
+
+| App | What | Local |
+| --- | --- | --- |
+| `apps/platform-api` | Medusa app: Emora staff, merchant registry, signed calls to shops | http://localhost:9100, database `emora_platform` |
+| `apps/platform-admin` | React + Vite super admin | http://localhost:5175 (proxies `/admin` and `/auth` to 9100) |
+
+Setup:
+
+1. `apps/platform-api`: copy `.env.template` to `.env` and fill it in (random
+   secrets; `PLATFORM_SECRETS_KEY` is 64 hex characters; `ALLOWED_SHOP_ORIGINS`
+   lists the shop backends the platform may call). Then
+   `bun run medusa db:create --db emora_platform` (remove the `DB_NAME=` line it
+   adds to `.env`) and `bun run medusa db:migrate`.
+2. Staff: `bun run medusa user -e <email> -p <password>`, then
+   `bun run medusa exec ./src/scripts/set-staff-role.ts <email> admin`.
+   Two-factor sign-in is set up at first sign-in and required for everyone.
+3. Each shop backend needs `PLATFORM_SHARED_SECRET` (and `MERCHANT_DASHBOARD_URL`
+   for owner invitations) in its env file. Add the merchant in the super admin
+   and paste the same secret under Connection. Locally,
+   `bun run medusa exec ./src/scripts/seed-local-merchants.ts` registers Sagar
+   and Anushq from their env files.
+4. Run `bun run dev` in `apps/platform-api` and `bun run dev` in `apps/platform-admin`.
+
+What the super admin can do: see each shop's health and 30-day figures (counts
+and rupee totals only), switch features on or off on the shop's own backend,
+create an owner invitation link, and read the activity log. It cannot see or
+edit products, customers or orders: merchants manage those in their dashboard.
