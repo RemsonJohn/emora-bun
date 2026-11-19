@@ -41,10 +41,10 @@ medusaIntegrationTestRunner({
         const updated = await api.post(`/admin/promotions/${created.data.promotion.id}`, { status: "active" }, header(admin.id))
         expect(updated.status).toBe(200)
         expect(updated.data.promotion.application_method).toMatchObject(application_method)
-        const actions = await container.resolve(Modules.PROMOTION).computeActions([code], { currency_code: "inr", items: [{ id: "line_test", quantity: 1, subtotal: 1000 }], shipping_methods: [{ id: "shipping_test", subtotal: 100 }] }, { prevent_auto_promotions: true })
+        const actions = await container.resolve(Modules.PROMOTION).computeActions([code], { currency_code: "inr", items: [{ id: "line_test", quantity: 1, subtotal: 1000, original_total: 1000, is_discountable: true }], shipping_methods: [{ id: "shipping_test", subtotal: 100, original_total: 100 }] }, { prevent_auto_promotions: true })
         const adjustment = actions.find((action: { code?: string }) => action.code === code)
         expect(adjustment).toBeDefined()
-        expect(Number(adjustment.amount)).toBe(code === "EMORA50" ? 50 : 100)
+        expect(Number((adjustment as { amount?: unknown } | undefined)?.amount)).toBe(code === "EMORA50" ? 50 : 100)
         expect((await api.delete(`/admin/promotions/${created.data.promotion.id}`, header(admin.id))).status).toBe(200)
       }
       const createdProduct = await api.post("/admin/products", { title: "Test jersey", status: "draft", options: [{ title: "Size", values: ["S", "M"] }], variants: [{ title: "Small", sku: "JERSEY-S", options: { Size: "S" }, prices: [{ currency_code: "inr", amount: 100 }, { currency_code: "usd", amount: 2 }] }] }, header(admin.id))

@@ -55,3 +55,9 @@ yarn-error.log*
 ehthumbs.db
 Thumbs.db
 **/.DS_Store
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Files uploaded through the local file provider (runtime data, not source)
+apps/backend/static/

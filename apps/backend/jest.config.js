@@ -1,16 +1,31 @@
 const { loadEnv } = require("@medusajs/utils");
 loadEnv("test", process.cwd());
 
-module.exports = {
-  transform: {
-    "^.+\\.[jt]s$": [
+// SWC is the default transformer. Where its native binding cannot load (Windows
+// Smart App Control blocks the unsigned binary), fall back to esbuild.
+function swcAvailable() {
+  try {
+    require("@swc/core")
+    return true
+  } catch {
+    return false
+  }
+}
+
+const transformer = swcAvailable()
+  ? [
       "@swc/jest",
       {
         jsc: {
           parser: { syntax: "typescript", decorators: true },
         },
       },
-    ],
+    ]
+  : "<rootDir>/integration-tests/esbuild-transform.js"
+
+module.exports = {
+  transform: {
+    "^.+\\.[jt]s$": transformer,
   },
   testEnvironment: "node",
   moduleFileExtensions: ["js", "ts", "json"],
