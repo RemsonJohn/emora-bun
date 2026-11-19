@@ -61,3 +61,7 @@ Thumbs.db
 
 # Files uploaded through the local file provider (runtime data, not source)
 apps/backend/static/
+
+# Per-shop backend settings (contain secrets); templates are committed
+apps/backend/.env.*
+!apps/backend/.env*.template

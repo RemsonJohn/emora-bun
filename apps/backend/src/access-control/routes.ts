@@ -25,6 +25,8 @@ const rules: Rule[] = [
   { method: "POST", pattern: /^\/admin\/payments\/[^/]+\/refund\/?$/, permission: "orders.refund" },
   { method: "GET", pattern: /^\/admin\/payments(?:\/[^/]+)?\/?$/, permission: "billing.read" },
   { method: "GET", pattern: /^\/admin\/customers(?:\/[^/]+)?\/?$/, permission: "customers.read" },
+  { method: "GET", pattern: /^\/admin\/enquiries(?:\/[^/]+)?\/?$/, permission: "customers.read" },
+  { method: "POST", pattern: /^\/admin\/enquiries\/[^/]+\/?$/, permission: "customers.write" },
   { method: "POST", pattern: /^\/admin\/customers(?:\/[^/]+)?\/?$/, permission: "customers.write" },
   { method: "GET", pattern: /^\/admin\/promotions(?:\/[^/]+)?\/?$/, permission: "discounts.read" },
   { method: "POST", pattern: /^\/admin\/promotions(?:\/[^/]+)*\/?$/, permission: "discounts.write" },

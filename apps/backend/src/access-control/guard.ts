@@ -6,6 +6,8 @@ import { STAFF_ACCESS_MODULE } from "../modules/staff-access"
 import type StaffAccessService from "../modules/staff-access/service"
 import { Modules } from "@medusajs/framework/utils"
 
+export const CAPTURABLE_PROVIDERS = ["pp_manual_cod", "pp_manual_paylater", "pp_razorpay_razorpay"]
+
 export async function staffAccessGuard(request: MedusaRequest, res: MedusaResponse, next: MedusaNextFunction) {
   const req = request as AuthenticatedMedusaRequest
   const path = `${req.baseUrl || ""}${req.path}`.replace(/\/+$/, "") || "/"
@@ -14,8 +16,19 @@ export async function staffAccessGuard(request: MedusaRequest, res: MedusaRespon
   if (req.auth_context?.actor_type !== "user" || !req.auth_context.actor_id) {
     return res.status(403).json({ message: "Staff access denied" })
   }
-  if (req.method === "POST" && /^\/admin\/payments\/[^/]+\/capture$/.test(path)) {
-    return res.status(409).json({ message: "Payment capture requires the verified Razorpay integration" })
+  const capture = req.method === "POST" ? /^\/admin\/payments\/([^/]+)\/capture$/.exec(path) : null
+  if (capture) {
+    // Only cash collected offline (COD, pay later) or a Razorpay payment verified on the server may be captured.
+    let providerId = ""
+    try {
+      const payment = await req.scope.resolve(Modules.PAYMENT).retrievePayment(capture[1], { select: ["provider_id"] })
+      providerId = payment.provider_id
+    } catch {
+      return res.status(404).json({ message: "Payment not found" })
+    }
+    if (!CAPTURABLE_PROVIDERS.includes(providerId)) {
+      return res.status(409).json({ message: "This payment cannot be captured from the dashboard" })
+    }
   }
   try {
     await req.scope.resolve(Modules.USER).retrieveUser(req.auth_context.actor_id)
