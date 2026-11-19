@@ -1,6 +1,7 @@
 import type { MedusaNextFunction, MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
 import { productAllowsCustomisation, storeLineItemMetadataSchema } from "../../lib/customisation"
+import { isFeatureEnabled } from "../../lib/features"
 
 /**
  * Guards the metadata a shopper can put on cart lines through the standard
@@ -39,6 +40,9 @@ export async function validateLineItemMetadata(req: MedusaRequest, res: MedusaRe
     productMetadata = (data[0] as { product?: { metadata?: Record<string, unknown> | null } } | undefined)?.product?.metadata
   }
 
+  if (parsed.data.customisation && !(await isFeatureEnabled(req.scope, "customisation"))) {
+    return res.status(400).json({ message: "Customisation is not available in this shop" })
+  }
   if (parsed.data.customisation && !productAllowsCustomisation(productMetadata)) {
     return res.status(400).json({ message: "This product cannot be customised" })
   }
