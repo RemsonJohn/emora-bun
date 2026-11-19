@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import type { ExecArgs } from "@medusajs/framework/types"
-import { ContainerRegistrationKeys, PriceListStatus, ProductStatus } from "@medusajs/framework/utils"
+import { ContainerRegistrationKeys, MedusaError, PriceListStatus, ProductStatus } from "@medusajs/framework/utils"
 import { z } from "@medusajs/framework/zod"
 import {
   createInventoryLevelsWorkflow,
@@ -64,12 +64,12 @@ export default async function importCatalogue({ container, args }: ExecArgs) {
   const query = container.resolve(ContainerRegistrationKeys.QUERY)
 
   const file = args[0]
-  if (!file) throw new Error("Pass the path to catalogue.json")
+  if (!file) throw new MedusaError(MedusaError.Types.INVALID_DATA, "Pass the path to catalogue.json")
   const catalogue = catalogueSchema.parse(JSON.parse(readFileSync(resolve(file), "utf8")))
 
   const expectedShop = process.env.EMORA_SHOP
   if (expectedShop && expectedShop !== catalogue.shop) {
-    throw new Error(`This catalogue is for "${catalogue.shop}", but the backend is running for "${expectedShop}"`)
+    throw new MedusaError(MedusaError.Types.INVALID_DATA, `This catalogue is for "${catalogue.shop}", but the backend is running for "${expectedShop}"`)
   }
 
   const { data: stores } = await query.graph({
@@ -78,7 +78,7 @@ export default async function importCatalogue({ container, args }: ExecArgs) {
   })
   const store = stores[0]
   const salesChannelId = store.default_sales_channel_id
-  if (!salesChannelId) throw new Error("The store has no default sales channel; run db:migrate first")
+  if (!salesChannelId) throw new MedusaError(MedusaError.Types.INVALID_DATA, "The store has no default sales channel; run db:migrate first")
 
   if (catalogue.store_metadata) {
     // Only add missing keys, so settings a merchant changed are kept.

@@ -1,5 +1,5 @@
 import type { ExecArgs } from "@medusajs/framework/types"
-import { ContainerRegistrationKeys, Modules } from "@medusajs/framework/utils"
+import { ContainerRegistrationKeys, MedusaError, Modules } from "@medusajs/framework/utils"
 import { updateRegionsWorkflow } from "@medusajs/medusa/core-flows"
 
 /**
@@ -13,7 +13,7 @@ export default async function enableRazorpay({ container }: ExecArgs) {
   const query = container.resolve(ContainerRegistrationKeys.QUERY)
   const providers = await container.resolve(Modules.PAYMENT).listPaymentProviders({ id: ["pp_razorpay_razorpay"] })
   if (!providers.length) {
-    throw new Error("Razorpay is not registered. Set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in this shop's env file.")
+    throw new MedusaError(MedusaError.Types.INVALID_DATA, "Razorpay is not registered. Set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in this shop's env file.")
   }
   const { data: regions } = await query.graph({
     entity: "region",
@@ -21,7 +21,7 @@ export default async function enableRazorpay({ container }: ExecArgs) {
     filters: { name: "India" },
   })
   const india = regions[0]
-  if (!india) throw new Error("No India region found")
+  if (!india) throw new MedusaError(MedusaError.Types.INVALID_DATA, "No India region found")
   const current = (india.payment_providers ?? []).map((p) => p!.id)
   if (current.includes("pp_razorpay_razorpay")) {
     logger.info("Razorpay is already offered in India.")
