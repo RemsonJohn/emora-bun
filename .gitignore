@@ -1,5 +1,7 @@
 # Dependencies
 node_modules
+.local-tools/
+.local-data/
 .pnp
 .pnp.js
 

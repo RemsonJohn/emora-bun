@@ -1,0 +1,13 @@
+const { chromium } = require("@playwright/test")
+const path = require("node:path")
+;(async () => {
+  const browser = await chromium.launch({ channel: "msedge", headless: true })
+  const page = await browser.newPage({ viewport: { width: 1280, height: 850 }, deviceScaleFactor: 1 })
+  await page.goto("https://www.sagarsportz.com/", { waitUntil: "networkidle", timeout: 45000 })
+  await page.screenshot({ path: path.join(__dirname, "assets/sagar-desktop.png") })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.reload({ waitUntil: "networkidle", timeout: 45000 })
+  await page.screenshot({ path: path.join(__dirname, "assets/sagar-mobile.png") })
+  await browser.close()
+  console.log("Captured Sagar storefront desktop and mobile references")
+})().catch(e => { console.error(e.message); process.exitCode = 1 })
